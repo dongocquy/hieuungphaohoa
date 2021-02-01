@@ -22,6 +22,59 @@
 	}
 </style>
 	<body>
+	<div id="playaudio" style="display:none">
+		<h2>Sound Information</h2>
+		<div id="length">Duration:</div>
+		<div id="source">Source:</div>
+		<div id="status" style="color:red;">Status: Loading</div>
+		<hr>
+		<h2>Control Buttons</h2>
+		<button id="play">Play</button>
+		<button id="pause">Pause</button>
+		<button id="restart">Restart</button>
+		<hr>
+		<h2>Playing Information</h2>
+		<div id="currentTime">0</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+		var audioElement = document.createElement('audio');
+		audioElement.setAttribute('src', 'TetTetTetTetDenRoi.mp3');
+		
+		audioElement.addEventListener('ended', function() {
+			this.play();
+		}, false);
+		
+		audioElement.addEventListener("canplay",function(){
+			$("#length").text("Duration:" + audioElement.duration + " seconds");
+			$("#source").text("Source:" + audioElement.src);
+			$("#status").text("Status: Ready to play").css("color","green");
+		});
+		
+		audioElement.addEventListener("timeupdate",function(){
+			$("#currentTime").text("Current second:" + audioElement.currentTime);
+		});
+		
+		$('#play').click(function() {
+			audioElement.play();
+			$("#status").text("Status: Playing");
+		});
+		
+		$('#pause').click(function() {
+			audioElement.pause();
+			$("#status").text("Status: Paused");
+		});
+		
+		$('#restart').click(function() {
+			audioElement.currentTime = 0;
+		});
+		 $("#play").trigger("click");
+		 $(document).on("click", "body", function(){
+			audioElement.play();
+			$("#status").text("Status: Playing");
+		});
+	});
+	</script>
 	<canvas id="canvas">Canvas không hổ trợ trình duyệt của bạn.</canvas>
 	<script type="text/javascript" src="new.year.min.js"></script>
 	<script type="text/javascript" src="phaohoa2.js"> </script>
